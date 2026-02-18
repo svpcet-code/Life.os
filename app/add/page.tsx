@@ -16,6 +16,7 @@ export default function AddMemoryPage() {
         description: "",
         fullStory: "",
         image: "",
+        isPrivate: false,
     });
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -119,6 +120,23 @@ export default function AddMemoryPage() {
                                 value={formData.image}
                                 onChange={(e) => setFormData({ ...formData, image: e.target.value })}
                             />
+                        </div>
+
+                        <div className="flex items-center gap-3 p-4 rounded-lg bg-white/5 border border-white/10">
+                            <div className="flex-1">
+                                <label className="text-sm font-bold text-white block">Private Memory</label>
+                                <p className="text-xs text-gray-400">Only visible in the Private Vault</p>
+                            </div>
+                            <button
+                                type="button"
+                                onClick={() => setFormData({ ...formData, isPrivate: !formData.isPrivate })}
+                                className={`w-12 h-6 rounded-full transition-colors relative ${formData.isPrivate ? "bg-accent-primary" : "bg-white/10"}`}
+                            >
+                                <motion.div
+                                    animate={{ x: formData.isPrivate ? 26 : 2 }}
+                                    className="w-5 h-5 rounded-full bg-white absolute top-0.5"
+                                />
+                            </button>
                         </div>
 
                         <div className="pt-4">

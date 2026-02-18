@@ -8,7 +8,7 @@ export function cn(...inputs: ClassValue[]) {
 
 // --- Types ---
 
-export type MoodType = "Happy" | "Sad" | "Achievement" | "Lesson" | "Love" | "Growth" | "Calm" | "Intense";
+export type MoodType = "Happy" | "Sad" | "Achievement" | "Lesson" | "Love" | "Growth" | "Calm" | "Intense" | "Family" | "Friends";
 
 export interface Memory {
     id: string;
@@ -20,6 +20,7 @@ export interface Memory {
     image?: string;
     tags?: string[];
     chapter?: string;
+    isPrivate?: boolean;
 }
 
 export interface Value {
@@ -40,7 +41,7 @@ export interface LifeChapter {
 // --- Data ---
 
 export const moods: MoodType[] = [
-    "Happy", "Sad", "Achievement", "Lesson", "Love", "Growth", "Calm", "Intense"
+    "Happy", "Sad", "Achievement", "Lesson", "Love", "Growth", "Calm", "Intense", "Family", "Friends"
 ];
 
 export const coreValues: Value[] = [
@@ -171,6 +172,26 @@ const generateMemories = (count: number): Memory[] => {
             image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=2080&auto=format&fit=crop",
             tags: ["#home", "#adulting"],
             chapter: "Career Beginnings"
+        },
+        {
+            id: "11",
+            title: "Secret Diary Entry",
+            date: "2023-10-15",
+            mood: "Intense",
+            description: "Things I can't say out loud yet.",
+            isPrivate: true,
+            tags: ["#private", "#diary"],
+            chapter: "Career Beginnings"
+        },
+        {
+            id: "12",
+            title: "The Letter I Never Sent",
+            date: "2022-02-14",
+            mood: "Love",
+            description: "Written but never delivered.",
+            isPrivate: true,
+            tags: ["#private", "#love"],
+            chapter: "University Life"
         }
     ];
 
