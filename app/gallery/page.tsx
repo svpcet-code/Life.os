@@ -2,7 +2,6 @@
 
 import { Navbar } from "@/components/layout/Navbar";
 import ParticleBackground from "@/components/3d/ParticleBackground";
-import { Footer } from "@/components/layout/Footer";
 import { memories } from "@/lib/data";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -63,7 +62,6 @@ export default function GalleryPage() {
                 </div>
             </section>
 
-            <Footer />
         </main>
     );
 }

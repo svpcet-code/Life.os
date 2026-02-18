@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import { Navbar } from "@/components/layout/Navbar";
 import ParticleBackground from "@/components/3d/ParticleBackground";
-import { Footer } from "@/components/layout/Footer";
 import { motion } from "framer-motion";
 import { ArrowLeft, Calendar, Tag } from "lucide-react";
 import Link from "next/link";
@@ -94,7 +93,6 @@ export default function MemoryDetailPage({ params }: { params: { id: string } })
                 </div>
             </motion.section>
 
-            <Footer />
         </main>
     );
 }

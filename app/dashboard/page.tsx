@@ -2,7 +2,6 @@
 
 import { Navbar } from "@/components/layout/Navbar";
 import ParticleBackground from "@/components/3d/ParticleBackground";
-import { Footer } from "@/components/layout/Footer";
 import { memories } from "@/lib/data";
 import { motion, AnimatePresence } from "framer-motion";
 import { EmotionalChart } from "@/components/features/EmotionalChart";

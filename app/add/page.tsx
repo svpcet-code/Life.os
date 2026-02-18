@@ -2,7 +2,6 @@
 
 import { Navbar } from "@/components/layout/Navbar";
 import ParticleBackground from "@/components/3d/ParticleBackground";
-import { Footer } from "@/components/layout/Footer";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { GlowingButton } from "@/components/ui/GlowingButton";
 import { moods } from "@/lib/data";
@@ -71,14 +70,14 @@ export default function AddMemoryPage() {
                         <div className="space-y-2">
                             <label className="text-sm font-medium text-gray-300">Mood</label>
                             <div className="flex flex-wrap gap-2">
-                                {moods.filter(m => m !== "All").map((mood) => (
+                                {moods.map((mood) => (
                                     <button
                                         key={mood}
                                         type="button"
                                         onClick={() => setFormData({ ...formData, mood })}
                                         className={`px-4 py-2 rounded-full text-sm border transition-all ${formData.mood === mood
-                                                ? "bg-accent-primary border-accent-primary text-white shadow-[0_0_10px_rgba(139,92,246,0.5)]"
-                                                : "bg-white/5 border-white/10 text-gray-400 hover:bg-white/10 hover:text-white"
+                                            ? "bg-accent-primary border-accent-primary text-white shadow-[0_0_10px_rgba(139,92,246,0.5)]"
+                                            : "bg-white/5 border-white/10 text-gray-400 hover:bg-white/10 hover:text-white"
                                             }`}
                                     >
                                         {mood}
@@ -131,7 +130,6 @@ export default function AddMemoryPage() {
                 </GlassCard>
             </section>
 
-            <Footer />
         </main>
     );
 }

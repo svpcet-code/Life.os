@@ -2,7 +2,6 @@
 
 import { Navbar } from "@/components/layout/Navbar";
 import ParticleBackground from "@/components/3d/ParticleBackground";
-import { Footer } from "@/components/layout/Footer";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { GlowingButton } from "@/components/ui/GlowingButton";
 import { motion } from "framer-motion";
@@ -72,7 +71,6 @@ export default function VaultPage() {
                 </div>
             </section>
 
-            <Footer />
         </main>
     );
 }

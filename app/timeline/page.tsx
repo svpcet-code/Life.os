@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
 import ParticleBackground from "@/components/3d/ParticleBackground";
-import { Footer } from "@/components/layout/Footer";
 import { memories, moods } from "@/lib/data";
 import { TimelineItem } from "@/components/features/TimelineItem";
 import { MoodFilter } from "@/components/features/MoodFilter";
@@ -54,7 +53,6 @@ export default function TimelinePage() {
                 </div>
             </section>
 
-            <Footer />
         </main>
     );
 }
