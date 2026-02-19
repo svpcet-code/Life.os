@@ -20,7 +20,7 @@ export default function Home() {
           transition={{ duration: 1, delay: 0.2 }}
           className="mb-6"
         >
-          <h2 className="text-accent-secondary tracking-[0.2em] font-medium text-sm md:text-base uppercase mb-4">
+          <h2 className="text-accent-secondary tracking-[0.2em] font-medium text-sm md:text-base uppercase mb-4 mt-4">
             The Emotional Operating System
           </h2>
           <h1 className="text-5xl md:text-8xl font-bold tracking-tight mb-2 bg-clip-text text-transparent bg-gradient-to-b from-white via-white/90 to-white/50 drop-shadow-[0_0_30px_rgba(255,255,255,0.3)]">

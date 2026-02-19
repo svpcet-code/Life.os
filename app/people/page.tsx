@@ -144,7 +144,7 @@ export default function PeoplePage() {
                 )}
             </section>
 
-            <Footer />
+
         </main>
     );
 }

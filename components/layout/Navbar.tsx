@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -33,8 +34,13 @@ export function Navbar() {
         >
             <div className="max-w-7xl mx-auto glass rounded-full px-6 py-3 flex items-center justify-between">
                 <Link href="/" className="flex items-center gap-2 group">
-                    <div className="w-8 h-8 rounded-full bg-accent-primary flex items-center justify-center text-white font-bold group-hover:animate-pulse-glow">
-                        L
+                    <div className="relative w-12 h-12 rounded-full overflow-hidden group-hover:scale-110 transition-transform">
+                        <Image
+                            src="/life-logo-jj.avif"
+                            alt="Life.OS Logo"
+                            fill
+                            className="object-cover p-1"
+                        />
                     </div>
                     <span className="text-xl font-bold tracking-wider group-hover:text-accent-primary transition-colors">
                         Life.OS

@@ -76,7 +76,7 @@ export default function PrivatePage() {
                 )}
             </section>
 
-            <Footer />
+
         </main>
     );
 }

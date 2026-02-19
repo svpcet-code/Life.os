@@ -13,6 +13,7 @@ interface LockScreenProps {
 export function LockScreen({ onUnlock }: LockScreenProps) {
     const [pin, setPin] = useState("");
     const [error, setError] = useState(false);
+    const [activeKey, setActiveKey] = useState<string | null>(null);
 
     const handleInput = (num: string) => {
         if (pin.length < 4) {
@@ -38,9 +39,27 @@ export function LockScreen({ onUnlock }: LockScreenProps) {
 
     useEffect(() => {
         if (pin.length === 4) {
-            handleSubmit();
+            const timer = setTimeout(handleSubmit, 200); // Small delay for visual feedback
+            return () => clearTimeout(timer);
         }
     }, [pin]);
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (/^[0-9]$/.test(e.key)) {
+                handleInput(e.key);
+                setActiveKey(e.key);
+                setTimeout(() => setActiveKey(null), 150);
+            } else if (e.key === "Backspace") {
+                handleBackspace();
+                setActiveKey("backspace");
+                setTimeout(() => setActiveKey(null), 150);
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [pin]); // Re-bind active listener if needed, or just keep it efficient
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-xl">
@@ -62,8 +81,8 @@ export function LockScreen({ onUnlock }: LockScreenProps) {
                             <div
                                 key={i}
                                 className={`w-4 h-4 rounded-full transition-colors ${i < pin.length
-                                        ? error ? "bg-red-500" : "bg-accent-primary"
-                                        : "bg-white/10"
+                                    ? error ? "bg-red-500" : "bg-accent-primary"
+                                    : "bg-white/10"
                                     }`}
                             />
                         ))}
@@ -74,7 +93,8 @@ export function LockScreen({ onUnlock }: LockScreenProps) {
                             <button
                                 key={num}
                                 onClick={() => handleInput(num.toString())}
-                                className="h-16 rounded-xl bg-white/5 hover:bg-white/10 transition-colors text-xl font-bold"
+                                className={`h-16 rounded-xl transition-colors text-xl font-bold ${activeKey === num.toString() ? "bg-accent-primary text-white scale-95" : "bg-white/5 hover:bg-white/10"
+                                    }`}
                             >
                                 {num}
                             </button>
@@ -82,13 +102,15 @@ export function LockScreen({ onUnlock }: LockScreenProps) {
                         <div />
                         <button
                             onClick={() => handleInput("0")}
-                            className="h-16 rounded-xl bg-white/5 hover:bg-white/10 transition-colors text-xl font-bold"
+                            className={`h-16 rounded-xl transition-colors text-xl font-bold ${activeKey === "0" ? "bg-accent-primary text-white scale-95" : "bg-white/5 hover:bg-white/10"
+                                }`}
                         >
                             0
                         </button>
                         <button
                             onClick={handleBackspace}
-                            className="h-16 rounded-xl bg-white/5 hover:bg-white/10 transition-colors flex items-center justify-center"
+                            className={`h-16 rounded-xl transition-colors flex items-center justify-center ${activeKey === "backspace" ? "bg-white/20 scale-95" : "bg-white/5 hover:bg-white/10"
+                                }`}
                         >
                             ←
                         </button>
