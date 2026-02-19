@@ -20,17 +20,25 @@ const navItems = [
     { name: "Add Memory", href: "/add", icon: Zap },
 ];
 
+const sidebarRoutes = ['/dashboard', '/memories', '/moods', '/messages'];
+
 export function Navbar() {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     const { isAuthenticated, logout } = useAuth();
+
+    // Check if current page has sidebar
+    const isSidebarPage = sidebarRoutes.some(route => pathname.startsWith(route));
 
     return (
         <motion.nav
             initial={{ y: -100 }}
             animate={{ y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="fixed top-0 left-0 right-0 z-50 px-6 py-4"
+            className={cn(
+                "fixed top-0 right-0 z-50 px-6 py-4 transition-all duration-300",
+                isSidebarPage ? "md:pl-72 left-0" : "left-0"
+            )}
         >
             <div className="max-w-7xl mx-auto glass rounded-full px-6 py-3 flex items-center justify-between">
                 <Link href="/" className="flex items-center gap-2 group">

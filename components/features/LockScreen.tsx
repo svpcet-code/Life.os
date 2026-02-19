@@ -27,6 +27,11 @@ export function LockScreen({ onUnlock }: LockScreenProps) {
         setError(false);
     };
 
+    const handleClear = () => {
+        setPin("");
+        setError(false);
+    };
+
     const handleSubmit = () => {
         // Mock PIN is 1234
         if (pin === "1234") {
@@ -54,19 +59,23 @@ export function LockScreen({ onUnlock }: LockScreenProps) {
                 handleBackspace();
                 setActiveKey("backspace");
                 setTimeout(() => setActiveKey(null), 150);
+            } else if (e.key === "Escape" || e.key === "c") {
+                handleClear();
+                setActiveKey("clear");
+                setTimeout(() => setActiveKey(null), 150);
             }
         };
 
         window.addEventListener("keydown", handleKeyDown);
         return () => window.removeEventListener("keydown", handleKeyDown);
-    }, [pin]); // Re-bind active listener if needed, or just keep it efficient
+    }, [pin]);
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-xl">
             <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                className="w-full max-w-sm px-4"
+                className="w-full max-w-md px-4"
             >
                 <GlassCard className="p-8 flex flex-col items-center">
                     <div className="mb-6 p-4 rounded-full bg-white/5 border border-white/10">
@@ -99,7 +108,13 @@ export function LockScreen({ onUnlock }: LockScreenProps) {
                                 {num}
                             </button>
                         ))}
-                        <div />
+                        <button
+                            onClick={handleClear}
+                            className={`h-16 rounded-xl transition-colors flex items-center justify-center ${activeKey === "clear" ? "bg-white/20 scale-95" : "bg-white/5 hover:bg-white/10"
+                                }`}
+                        >
+                            <span className="text-sm font-medium uppercase tracking-wider">CLR</span>
+                        </button>
                         <button
                             onClick={() => handleInput("0")}
                             className={`h-16 rounded-xl transition-colors text-xl font-bold ${activeKey === "0" ? "bg-accent-primary text-white scale-95" : "bg-white/5 hover:bg-white/10"

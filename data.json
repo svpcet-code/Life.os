@@ -1,0 +1,177 @@
+{
+  "users": [
+    {
+      "id": "0871b7a1-435f-435d-966c-00dc6c12d8a6",
+      "name": "Test User",
+      "email": "testuser_1771502238387@example.com",
+      "password": "$2b$10$3w/WndCgKjZ4RdA5YZ06pO8hkhZeKL9rB3ScCyjnSHFrzQojccpM6",
+      "createdAt": "2026-02-19T11:57:19.000Z"
+    },
+    {
+      "id": "cc0111b6-d2a0-4170-9c95-fcc11b1d0763",
+      "name": "Test User",
+      "email": "testuser_1771502574382@example.com",
+      "password": "$2b$10$kJwEe2vqNTBEEsvUR7dj1.qdMiiumqoSfImD.jOZ0HqfixUlMGWiC",
+      "createdAt": "2026-02-19T12:02:54.885Z"
+    },
+    {
+      "id": "6c3aa31e-3603-4501-a210-15a792eb2c36",
+      "name": "Test User",
+      "email": "testuser_1771503016021@example.com",
+      "password": "$2b$10$i9POLbXj8Zfkluvng9qmIup.2zpufuS5HPz34rhMUTOAKfjY4qlPi",
+      "createdAt": "2026-02-19T12:10:16.402Z"
+    },
+    {
+      "id": "2f940d03-bcb5-4ab4-bf7c-1eb5686542ed",
+      "name": "Test User",
+      "email": "testuser_1771503313435@example.com",
+      "password": "$2b$10$4d/30093wEqXAPxZoSxMUegtfBtVgI7elUqJ0g02UFRZ59.aYuvcO",
+      "createdAt": "2026-02-19T12:15:13.989Z"
+    },
+    {
+      "id": "4282eb07-2686-4802-8499-433a69d26f06",
+      "name": "shubham ",
+      "email": "shubhamdongare912@gmail.com",
+      "password": "$2b$10$22KZK/KgXf9eLA3Kd5q9Ou1y7fBrMmFhbTkwgMnOO/qjCL.wgIWT6",
+      "createdAt": "2026-02-19T12:46:39.391Z"
+    }
+  ],
+  "posts": [],
+  "gallery": [],
+  "memories": [],
+  "moods": [
+    {
+      "id": "95b68eec-d72a-41eb-a75d-0ea7d4f627eb",
+      "userId": "0871b7a1-435f-435d-966c-00dc6c12d8a6",
+      "value": 8,
+      "moodType": "excited",
+      "createdAt": "2026-02-19T11:57:19.972Z"
+    },
+    {
+      "id": "44825ee6-c93f-4d28-8d33-8a1ae5991c94",
+      "userId": "cc0111b6-d2a0-4170-9c95-fcc11b1d0763",
+      "value": 8,
+      "moodType": "excited",
+      "createdAt": "2026-02-19T12:02:55.184Z"
+    },
+    {
+      "id": "80ca18a5-2258-490d-b9c0-d5d63dd09f22",
+      "userId": "6c3aa31e-3603-4501-a210-15a792eb2c36",
+      "value": 8,
+      "moodType": "excited",
+      "createdAt": "2026-02-19T12:10:16.707Z"
+    },
+    {
+      "id": "9df37761-97e2-4f37-bb5c-77c1e79c4036",
+      "userId": "2f940d03-bcb5-4ab4-bf7c-1eb5686542ed",
+      "value": 8,
+      "moodType": "excited",
+      "createdAt": "2026-02-19T12:15:14.555Z"
+    },
+    {
+      "id": "48d1df98-0130-4da4-8eb2-e3085c425518",
+      "userId": "4282eb07-2686-4802-8499-433a69d26f06",
+      "value": 8,
+      "moodType": "happy",
+      "createdAt": "2026-02-19T13:00:10.053Z"
+    },
+    {
+      "id": "6d787beb-935c-41ad-b9e6-fa8a7155cdb0",
+      "userId": "4282eb07-2686-4802-8499-433a69d26f06",
+      "value": 7,
+      "moodType": "calm",
+      "createdAt": "2026-02-19T13:00:13.726Z"
+    },
+    {
+      "id": "e587def9-e6be-4594-8153-15a17c4c8448",
+      "userId": "4282eb07-2686-4802-8499-433a69d26f06",
+      "value": 4,
+      "moodType": "anxious",
+      "createdAt": "2026-02-19T13:00:15.990Z"
+    },
+    {
+      "id": "52493785-23ce-4e66-ba31-2841c01f5ab9",
+      "userId": "4282eb07-2686-4802-8499-433a69d26f06",
+      "value": 4,
+      "moodType": "anxious",
+      "createdAt": "2026-02-19T16:32:55.835Z"
+    },
+    {
+      "id": "2f6ddf78-5fb8-441a-9b58-a05b3b7552da",
+      "userId": "4282eb07-2686-4802-8499-433a69d26f06",
+      "value": 7,
+      "moodType": "calm",
+      "createdAt": "2026-02-19T16:32:56.583Z"
+    },
+    {
+      "id": "de19199b-718b-44e9-90d4-beb6f00f624b",
+      "userId": "4282eb07-2686-4802-8499-433a69d26f06",
+      "value": 8,
+      "moodType": "happy",
+      "createdAt": "2026-02-19T16:32:57.154Z"
+    },
+    {
+      "id": "d8ec729c-c6e5-4d89-b065-c48352ddadb9",
+      "userId": "4282eb07-2686-4802-8499-433a69d26f06",
+      "value": 9,
+      "moodType": "excited",
+      "createdAt": "2026-02-19T16:32:57.794Z"
+    },
+    {
+      "id": "4fba5353-8f10-4d93-bdae-37c068816706",
+      "userId": "4282eb07-2686-4802-8499-433a69d26f06",
+      "value": 3,
+      "moodType": "sad",
+      "createdAt": "2026-02-19T16:32:58.313Z"
+    },
+    {
+      "id": "b2c5ac74-4c1a-4a6e-8642-63a140f688f4",
+      "userId": "4282eb07-2686-4802-8499-433a69d26f06",
+      "value": 8,
+      "moodType": "happy",
+      "createdAt": "2026-02-19T17:26:39.175Z"
+    },
+    {
+      "id": "77e1ee70-9dd4-42ef-a043-e7e39d600732",
+      "userId": "4282eb07-2686-4802-8499-433a69d26f06",
+      "value": 7,
+      "moodType": "calm",
+      "createdAt": "2026-02-19T17:26:40.802Z"
+    }
+  ],
+  "messages": [
+    {
+      "id": "8b19bea3-1fdc-44a0-9144-7609b83a2c71",
+      "userId": "0871b7a1-435f-435d-966c-00dc6c12d8a6",
+      "content": "Future Self",
+      "unlockAt": "2026-02-20T11:57:20.011Z",
+      "isLocked": true,
+      "createdAt": "2026-02-19T11:57:20.292Z"
+    },
+    {
+      "id": "c754661e-f952-43de-a956-6696f106ce84",
+      "userId": "cc0111b6-d2a0-4170-9c95-fcc11b1d0763",
+      "content": "Future Self",
+      "unlockAt": "2026-02-20T12:02:55.218Z",
+      "isLocked": true,
+      "createdAt": "2026-02-19T12:02:55.276Z"
+    },
+    {
+      "id": "f372adb1-fe86-4086-867f-2db96c45b0e0",
+      "userId": "6c3aa31e-3603-4501-a210-15a792eb2c36",
+      "content": "Future Self",
+      "unlockAt": "2026-02-20T12:10:16.738Z",
+      "isLocked": true,
+      "createdAt": "2026-02-19T12:10:16.805Z"
+    },
+    {
+      "id": "7fd04732-2b8d-4e6f-9ad1-ddb9fa4ab603",
+      "userId": "2f940d03-bcb5-4ab4-bf7c-1eb5686542ed",
+      "content": "Future Self",
+      "unlockAt": "2026-02-20T12:15:14.613Z",
+      "isLocked": true,
+      "createdAt": "2026-02-19T12:15:14.719Z"
+    }
+  ],
+  "tasks": []
+}

@@ -11,7 +11,7 @@ interface MoodFilterProps {
 
 export function MoodFilter({ currentMood, onMoodChange, moods }: MoodFilterProps) {
     return (
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
+        <div className="flex flex-nowrap overflow-x-auto pb-4 gap-3 mb-8 w-full scrollbar-hide mask-gradient px-4 md:justify-center justify-start">
             {moods.map((mood, index) => (
                 <button
                     key={mood}

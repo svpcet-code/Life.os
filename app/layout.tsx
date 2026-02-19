@@ -33,7 +33,7 @@ export default function RootLayout({
           "antialiased min-h-screen relative overflow-x-hidden bg-background text-foreground"
         )}
       >
-        <div className="fixed inset-0 z-[-1] bg-[url('/noise.png')] opacity-5 pointer-events-none mix-blend-overlay"></div>
+        <div className="fixed inset-0 z-[-1] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyMDAlJyBoZWlnaHQ9JzIwMCUnPjxmaWx0ZXIgaWQ9J24nPjxmZVR1cmJ1bGVuY2UgdHlwZT0nZnJhY3RhbE5vaXNlJyBiYXNlRnJlcXVlbmN5PScwLjY1JyBudW1PY3RhdmVzPSczJyBzdGl0Y2hUaWxlcz0nc3RpdGNoJy8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJScgZmlsbD0ndHJhbnNwYXJlbnQnLz48cmVjdCB3aWR0aD0nMTAwJScgaGVpZ2h0PScxMDAlJyBmaWxsPSdibGFjaycgZmlsdGVyPSd1cmwoI24pJyBvcGFjaXR5PScwLjInLz48L3N2Zz4=')] opacity-5 pointer-events-none mix-blend-overlay"></div>
         {/* Placeholder for Particle Background */}
         <div id="stars-container" className="fixed inset-0 z-[-2]" />
 
