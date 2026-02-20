@@ -14,10 +14,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
-        const storedAuth = localStorage.getItem("lifeos_auth");
-        if (storedAuth === "true") {
-            setIsAuthenticated(true);
-        }
+        const checkAuth = async () => {
+            try {
+                const res = await fetch('/api/auth/me');
+                if (res.ok) {
+                    setIsAuthenticated(true);
+                    localStorage.setItem("lifeos_auth", "true");
+                } else {
+                    setIsAuthenticated(false);
+                    localStorage.removeItem("lifeos_auth");
+                }
+            } catch (error) {
+                console.error("Auth check failed", error);
+                setIsAuthenticated(false);
+                localStorage.removeItem("lifeos_auth");
+            }
+        };
+        checkAuth();
     }, []);
 
     const login = () => {
@@ -25,9 +38,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setIsAuthenticated(true);
     };
 
-    const logout = () => {
-        localStorage.removeItem("lifeos_auth");
-        setIsAuthenticated(false);
+    const logout = async () => {
+        try {
+            await fetch('/api/auth/logout', { method: 'POST' });
+        } catch (error) {
+            console.error('Logout failed', error);
+        } finally {
+            localStorage.removeItem("lifeos_auth");
+            setIsAuthenticated(false);
+            window.location.assign('/login');
+        }
     };
 
     return (

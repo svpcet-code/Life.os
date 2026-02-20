@@ -4,6 +4,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { clsx } from 'clsx';
 import { Home, Brain, Activity, Send, LogOut, Code2 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useAuth } from '@/lib/contexts/AuthContext';
 
 const navItems = [
     { href: '/dashboard', label: 'Dashboard', icon: Home },
@@ -15,16 +16,7 @@ const navItems = [
 export function Sidebar() {
     const pathname = usePathname();
     const router = useRouter();
-
-    async function handleLogout() {
-        // In a real app we'd call an API to clear cookie, 
-        // but for now we can just redirect to login which middleware handles or clear client state
-        // We'll rename the cookie clearing api later
-        // For now just force redirect
-        document.cookie = 'session=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-        router.push('/login');
-        router.refresh();
-    }
+    const { logout } = useAuth();
 
     return (
         <motion.div
@@ -60,7 +52,7 @@ export function Sidebar() {
 
             <div className="p-6 border-t border-white/5">
                 <button
-                    onClick={handleLogout}
+                    onClick={logout}
                     className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-gray-400 transition-all hover:bg-white/5 hover:text-red-400"
                 >
                     <LogOut size={20} />

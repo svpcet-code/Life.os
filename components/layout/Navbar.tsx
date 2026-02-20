@@ -115,6 +115,29 @@ export function Navbar() {
                             <span className="text-white">{item.name}</span>
                         </Link>
                     ))}
+
+                    {/* Mobile Auth Button */}
+                    {isAuthenticated ? (
+                        <button
+                            onClick={() => {
+                                setIsOpen(false);
+                                logout();
+                            }}
+                            className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors w-full text-left"
+                        >
+                            <LogOut size={20} className="text-red-400" />
+                            <span className="text-white">Logout</span>
+                        </button>
+                    ) : (
+                        <Link
+                            href="/login"
+                            onClick={() => setIsOpen(false)}
+                            className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors"
+                        >
+                            <User size={20} className="text-accent-primary" />
+                            <span className="text-white">Login</span>
+                        </Link>
+                    )}
                 </motion.div>
             )}
         </motion.nav>

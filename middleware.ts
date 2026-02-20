@@ -1,13 +1,12 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { decrypt } from './lib/auth';
-import { cookies } from 'next/headers';
+
 
 // Helper function to update session if needed (rolling expiration) -> for now simple check
 // We will just verify here.
 
 export async function middleware(request: NextRequest) {
-    const cookieStore = await cookies();
-    const session = cookieStore.get('session')?.value;
+    const session = request.cookies.get('session')?.value;
 
     // Define protected routes
     const protectedRoutes = ['/dashboard', '/memories', '/moods', '/messages', '/vault'];

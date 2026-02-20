@@ -5,9 +5,11 @@ import { GlassCard } from '@/components/ui/GlassCard';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { LogIn, Loader2 } from 'lucide-react';
+import { useAuth } from '@/lib/contexts/AuthContext';
 
 export default function LoginPage() {
     const router = useRouter();
+    const { login } = useAuth();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
@@ -31,8 +33,26 @@ export default function LoginPage() {
                 throw new Error(json.error || 'Login failed');
             }
 
+            login(); // Update context state immediately
             router.push('/dashboard');
             router.refresh();
+            // Sync with context
+            // We can manually set it or let the auto-check handle it, but manual is faster for UX
+            // Since we are redirecting, the layout might remount or we relies on the context persistence?
+            // Actually, simply calling login() from context (which sets local state) is good immediate feedback
+            // But we need to access context.
+            // However, we are inside a function.
+            // Let's rely on the router.push causing a navigation, and hopefully the context persists or re-checks?
+            // Wait, context state is in memory. If we don't reload the page, we need to update the context.
+
+            // To do this properly in this file:
+            // 1. We need useAuth hook.
+            // 2. We call login(). 
+            // BUT login() in context just sets true. Ideally it should also maybe fetch? 
+            // For now, setting true is enough because we know we just succeeded.
+
+            // We need to pass the login function to this component or use the hook.
+            // I'll add the hook usage below.
         } catch (err: any) {
             setError(err.message || 'An error occurred');
         } finally {

@@ -34,6 +34,13 @@
       "email": "shubhamdongare912@gmail.com",
       "password": "$2b$10$22KZK/KgXf9eLA3Kd5q9Ou1y7fBrMmFhbTkwgMnOO/qjCL.wgIWT6",
       "createdAt": "2026-02-19T12:46:39.391Z"
+    },
+    {
+      "id": "63756705-7e32-4755-9b09-04d39e8d0316",
+      "name": "rahul",
+      "email": "shubhamdongare.24@stvincentngp.edu.in",
+      "password": "$2b$10$XzUncDEmMgLTpoPqr/ta0OJk0SCm1HADKjKxTxP0v2..i34oJnUgC",
+      "createdAt": "2026-02-20T03:45:58.052Z"
     }
   ],
   "posts": [],
@@ -173,5 +180,13 @@
       "createdAt": "2026-02-19T12:15:14.719Z"
     }
   ],
-  "tasks": []
+  "tasks": [
+    {
+      "id": "0c4ad063-00d8-4acf-839a-99a2ba5d6c1e",
+      "userId": "4282eb07-2686-4802-8499-433a69d26f06",
+      "text": "i want to make my day special ",
+      "completed": false,
+      "createdAt": "2026-02-19T18:03:38.771Z"
+    }
+  ]
 }
