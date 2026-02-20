@@ -112,9 +112,3 @@ npm run dev
 
 ```
 
----
-
-### 💡 Pro-Tip for your README:
-Since you mentioned **Framer Motion**, you might want to include a small code snippet in the README to show off your animation skills. Would you like me to write a **`MemoryCard.tsx`** component with a glassmorphism effect and hover animations to include in your "Code Preview" section?
-
-```
