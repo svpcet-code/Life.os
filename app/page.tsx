@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ArrowRight, Brain, Shield, Zap } from 'lucide-react';
+import { DailyWidget } from '@/components/ui/DailyWidget';
 
 export default function LandingPage() {
   return (
@@ -42,7 +43,10 @@ export default function LandingPage() {
           </Link>
         </div>
 
-        <div className="mt-32 grid gap-8 md:grid-cols-3 text-left max-w-5xl w-full px-4">
+        {/* Daily Widget — Time, Date, Quote */}
+        <DailyWidget />
+
+        <div className="mt-16 grid gap-8 md:grid-cols-3 text-left max-w-5xl w-full px-4">
           {[
             { title: 'Memory Vault', desc: 'Securely store life moments with encryption.', icon: Shield },
             { title: 'Mood Analytics', desc: 'Visualize your emotional trends over time.', icon: Zap },

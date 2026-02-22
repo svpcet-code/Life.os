@@ -5,7 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Home, Zap, Clock, MessageSquare, Image as ImageIcon, LayoutDashboard, Menu, X, BookOpen, User, LogOut, Users, Lock } from "lucide-react";
+import { Home, Zap, Clock, MessageSquare, Image as ImageIcon, LayoutDashboard, Menu, X, BookOpen, User, LogOut, Users, Lock, Sparkles } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "@/lib/contexts/AuthContext";
 
@@ -18,6 +18,7 @@ const navItems = [
     { name: "Vault", href: "/vault", icon: MessageSquare },
     { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
     { name: "Add Memory", href: "/add", icon: Zap },
+    { name: "Words", href: "/words", icon: Sparkles },
 ];
 
 const sidebarRoutes = ['/dashboard', '/memories', '/moods', '/messages'];

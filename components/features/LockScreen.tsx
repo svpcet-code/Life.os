@@ -83,7 +83,7 @@ export function LockScreen({ onUnlock }: LockScreenProps) {
                     </div>
 
                     <h2 className="text-2xl font-bold mb-2">Private Vault</h2>
-                    <p className="text-gray-400 mb-8 text-sm">Enter PIN to access (1234)</p>
+                    <p className="text-gray-400 mb-8 text-sm">Enter PIN to access</p>
 
                     <div className="flex gap-4 mb-8">
                         {[0, 1, 2, 3].map((i) => (
