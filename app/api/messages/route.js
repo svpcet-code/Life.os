@@ -41,3 +41,19 @@ export async function POST(request) {
         return NextResponse.json({ error: 'Failed to create time capsule' }, { status: 500 });
     }
 }
+
+export async function DELETE(request) {
+    const session = await getSession();
+    if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
+    try {
+        const { searchParams } = new URL(request.url);
+        const id = searchParams.get('id');
+        if (!id) return NextResponse.json({ error: 'Message ID required' }, { status: 400 });
+
+        await messageService.delete(id, session.user.id);
+        return NextResponse.json({ success: true });
+    } catch (error) {
+        return NextResponse.json({ error: 'Failed to delete capsule' }, { status: 500 });
+    }
+}

@@ -22,5 +22,13 @@ export const messageService = {
         db.data.messages.push(message);
         await db.write();
         return message;
+    },
+
+    async delete(id, userId) {
+        const db = await getDb();
+        db.data.messages = db.data.messages.filter(
+            m => !(m.id === id && m.userId === userId)
+        );
+        await db.write();
     }
 };

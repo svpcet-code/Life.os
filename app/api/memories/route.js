@@ -3,10 +3,16 @@ import { getSession } from '@/lib/auth';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 
+const VALID_MOODS = ["Happy", "Sad", "Achievement", "Lesson", "Love", "Growth", "Calm", "Intense", "Family", "Friends"];
+
 const memorySchema = z.object({
     title: z.string().min(1, 'Title is required'),
-    description: z.string().optional(),
-    mood: z.enum(['happy', 'sad', 'neutral', 'excited', 'calm', 'anxious']).default('neutral'),
+    date: z.string().min(1, 'Date is required'),
+    mood: z.enum(["Happy", "Sad", "Achievement", "Lesson", "Love", "Growth", "Calm", "Intense", "Family", "Friends"]).default('Happy'),
+    description: z.string().optional().default(''),
+    fullStory: z.string().optional().default(''),
+    image: z.string().optional().default(''),
+    isPrivate: z.boolean().optional().default(false),
 });
 
 export async function GET() {

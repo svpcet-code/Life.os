@@ -45,7 +45,20 @@
   ],
   "posts": [],
   "gallery": [],
-  "memories": [],
+  "memories": [
+    {
+      "id": "3c71d29b-f678-470c-8908-db620096adf2",
+      "userId": "4282eb07-2686-4802-8499-433a69d26f06",
+      "title": "best f",
+      "date": "2026-02-22",
+      "mood": "Happy",
+      "description": "goodu",
+      "fullStory": "going in the park ",
+      "image": "",
+      "isPrivate": false,
+      "createdAt": "2026-02-22T07:57:00.827Z"
+    }
+  ],
   "moods": [
     {
       "id": "95b68eec-d72a-41eb-a75d-0ea7d4f627eb",
@@ -180,12 +193,12 @@
       "createdAt": "2026-02-19T12:15:14.719Z"
     },
     {
-      "id": "c0efc8b5-750c-45b8-bd6f-02062744503a",
+      "id": "3a23e6c8-1dd8-4f3e-8d60-a801b5da4c3d",
       "userId": "4282eb07-2686-4802-8499-433a69d26f06",
-      "content": "marry with nikita ",
-      "unlockAt": "2028-02-14T08:46:00.000Z",
+      "content": "i want to buy a car",
+      "unlockAt": "2026-12-22T00:00:00.000Z",
       "isLocked": true,
-      "createdAt": "2026-02-21T08:46:53.895Z"
+      "createdAt": "2026-02-22T08:18:53.705Z"
     }
   ],
   "tasks": []
