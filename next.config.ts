@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Include data.json in Vercel serverless bundle
+  outputFileTracingIncludes: {
+    '/api/**/*': ['./data.json'],
+  },
   images: {
     remotePatterns: [
       {
