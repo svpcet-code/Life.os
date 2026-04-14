@@ -18,6 +18,7 @@ export interface Memory {
     description: string;
     fullStory?: string;
     image?: string;
+    video?: string;
     tags?: string[];
     chapter?: string;
     isPrivate?: boolean;

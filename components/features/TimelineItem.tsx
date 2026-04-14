@@ -61,7 +61,18 @@ export function TimelineItem({ memory, idx, onDelete }: TimelineItemProps) {
             />
 
             <GlassCard className={cn("w-full bg-gradient-to-br group", moodColors[memory.mood] || "from-white/5 to-transparent")}>
-                {memory.image && (
+                {memory.video ? (
+                    <div className="relative h-48 w-full mb-4 rounded-lg overflow-hidden group">
+                        <video
+                            src={memory.video}
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            controls
+                            muted
+                            loop
+                            playsInline
+                        />
+                    </div>
+                ) : memory.image && (
                     <div className="relative h-48 w-full mb-4 rounded-lg overflow-hidden group">
                         <Image
                             src={memory.image}

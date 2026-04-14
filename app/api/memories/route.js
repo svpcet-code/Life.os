@@ -12,6 +12,7 @@ const memorySchema = z.object({
     description: z.string().optional().default(''),
     fullStory: z.string().optional().default(''),
     image: z.string().optional().default(''),
+    video: z.string().optional().default(''),
     isPrivate: z.boolean().optional().default(false),
 });
 

@@ -32,7 +32,7 @@
       "id": "4282eb07-2686-4802-8499-433a69d26f06",
       "name": "shubham ",
       "email": "shubhamdongare912@gmail.com",
-      "password": "$2b$10$5Rpr9R5QiDcQM6BkJL461ORlKGE0ML2FyZ4ni15atNzVwjUGlOuR",
+      "password": "$2b$10$DPU4gqZ7o2YXEQFj3NyrvuhnMJb4ikT3dVMYF5cxbVkJPyx3fNz7a",
       "createdAt": "2026-02-19T12:46:39.391Z"
     },
     {
@@ -41,6 +41,20 @@
       "email": "shubhamdongare.24@stvincentngp.edu.in",
       "password": "$2b$10$XzUncDEmMgLTpoPqr/ta0OJk0SCm1HADKjKxTxP0v2..i34oJnUgC",
       "createdAt": "2026-02-20T03:45:58.052Z"
+    },
+    {
+      "id": "1bc34b20-69f3-49df-98f0-dd435ff72e0e",
+      "name": "Atharva Joshi",
+      "email": "atharvajoshi@gmail.com",
+      "password": "$2b$10$emGCPoibR8QB36mNYlSsw.virS.dNV.EnQnHP0GtRDLpgyMDFkgAa",
+      "createdAt": "2026-02-25T07:33:52.033Z"
+    },
+    {
+      "id": "45aa1bda-34af-4ef5-8d2c-515909f0b189",
+      "name": "shubham dongare",
+      "email": "shubhamdogare912@gmail.com",
+      "password": "$2b$10$BgRntvaQZE2qlB0cIo0qZe5wCIs/YH3KlY2n7PZn9IbloiIYKNl8u",
+      "createdAt": "2026-04-12T03:25:54.911Z"
     }
   ],
   "posts": [],
@@ -157,6 +171,13 @@
       "value": 7,
       "moodType": "calm",
       "createdAt": "2026-02-19T17:26:40.802Z"
+    },
+    {
+      "id": "d64e531e-0d6d-448f-be2f-b7fa141c632c",
+      "userId": "63756705-7e32-4755-9b09-04d39e8d0316",
+      "value": 4,
+      "moodType": "anxious",
+      "createdAt": "2026-02-25T18:02:11.496Z"
     }
   ],
   "messages": [
@@ -199,7 +220,23 @@
       "unlockAt": "2026-12-22T00:00:00.000Z",
       "isLocked": true,
       "createdAt": "2026-02-22T08:18:53.705Z"
+    },
+    {
+      "id": "1566b1fd-1a3b-4891-9e46-dfdd916bd02e",
+      "userId": "63756705-7e32-4755-9b09-04d39e8d0316",
+      "content": "bike ",
+      "unlockAt": "2028-11-25T18:02:00.000Z",
+      "isLocked": true,
+      "createdAt": "2026-02-25T18:02:33.063Z"
     }
   ],
-  "tasks": []
+  "tasks": [
+    {
+      "id": "a9f7b39c-c0e8-4fe1-bc36-71fc1efe8523",
+      "userId": "63756705-7e32-4755-9b09-04d39e8d0316",
+      "text": "khhj",
+      "completed": false,
+      "createdAt": "2026-02-25T18:01:51.098Z"
+    }
+  ]
 }

@@ -7,9 +7,10 @@ import { memories as staticMemories, moods, Memory, MoodType } from "@/lib/data"
 import { TimelineItem } from "@/components/features/TimelineItem";
 import { MoodFilter } from "@/components/features/MoodFilter";
 import { useState, useEffect } from "react";
-import { Plus, X, Loader2, BookOpen } from "lucide-react";
+import { Plus, X, Loader2, BookOpen, Upload, FileVideo, CloudUpload } from "lucide-react";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { MemoryReel } from "@/components/features/MemoryReel";
+import { cn } from "@/lib/utils";
 
 const EMPTY_FORM = {
     title: "",
@@ -18,6 +19,7 @@ const EMPTY_FORM = {
     description: "",
     fullStory: "",
     image: "",
+    video: "",
     isPrivate: false,
 };
 
@@ -31,6 +33,8 @@ export default function TimelinePage() {
     const [showModal, setShowModal] = useState(false);
     const [formData, setFormData] = useState({ ...EMPTY_FORM });
     const [saving, setSaving] = useState(false);
+    const [uploading, setUploading] = useState(false);
+    const [isDragging, setIsDragging] = useState(false);
     const [saveError, setSaveError] = useState("");
     const [showReel, setShowReel] = useState(false);
 
@@ -115,6 +119,38 @@ export default function TimelinePage() {
         setFormData({ ...EMPTY_FORM });
         setShowModal(false);
         setSaving(false);
+    };
+
+    const handleFileUpload = async (file: File) => {
+        setUploading(true);
+        const formData = new FormData();
+        formData.append("file", file);
+
+        try {
+            const res = await fetch("/api/upload", {
+                method: "POST",
+                body: formData,
+            });
+            const data = await res.json();
+            if (data.url) {
+                if (file.type.startsWith("video/")) {
+                    setFormData(prev => ({ ...prev, video: data.url }));
+                } else if (file.type.startsWith("image/")) {
+                    setFormData(prev => ({ ...prev, image: data.url }));
+                }
+            }
+        } catch (error) {
+            console.error("Upload failed:", error);
+        } finally {
+            setUploading(false);
+        }
+    };
+
+    const handleDrop = (e: React.DragEvent) => {
+        e.preventDefault();
+        setIsDragging(false);
+        const file = e.dataTransfer.files[0];
+        if (file) handleFileUpload(file);
     };
 
     // ── Delete ─────────────────────────────────────────────────────────────
@@ -243,6 +279,42 @@ export default function TimelinePage() {
                                 )}
 
                                 <form onSubmit={handleAdd} className="space-y-4">
+                                    {/* Drag and Drop Zone */}
+                                    <div
+                                        onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+                                        onDragLeave={() => setIsDragging(false)}
+                                        onDrop={handleDrop}
+                                        className={cn(
+                                            "relative border-2 border-dashed rounded-xl p-8 transition-all flex flex-col items-center justify-center gap-2 cursor-pointer",
+                                            isDragging ? "border-accent-primary bg-accent-primary/10 scale-[0.98]" : "border-white/10 bg-white/5 hover:bg-white/10",
+                                            uploading && "opacity-50 pointer-events-none"
+                                        )}
+                                        onClick={() => {
+                                            const input = document.createElement('input');
+                                            input.type = 'file';
+                                            input.accept = 'image/*,video/*';
+                                            input.onchange = (e) => {
+                                                const file = (e.target as HTMLInputElement).files?.[0];
+                                                if (file) handleFileUpload(file);
+                                            };
+                                            input.click();
+                                        }}
+                                    >
+                                        <div className="absolute top-2 right-2 flex gap-1">
+                                            {formData.image && <div className="w-8 h-8 rounded bg-green-500/20 border border-green-500/50 flex items-center justify-center"><CloudUpload size={12} className="text-green-500" /></div>}
+                                            {formData.video && <div className="w-8 h-8 rounded bg-blue-500/20 border border-blue-500/50 flex items-center justify-center"><FileVideo size={12} className="text-blue-500" /></div>}
+                                        </div>
+
+                                        {uploading ? (
+                                            <Loader2 className="animate-spin text-accent-primary" size={24} />
+                                        ) : (
+                                            <Upload className={cn("text-gray-400 group-hover:text-white transition-colors", isDragging && "text-accent-primary scale-110")} size={32} />
+                                        )}
+                                        <p className="text-sm font-medium text-gray-400">
+                                            {uploading ? "Uploading media..." : "Drag & Drop or Click to Upload Media"}
+                                        </p>
+                                        <p className="text-[10px] text-gray-500 uppercase tracking-widest">Supports Images & Videos</p>
+                                    </div>
                                     {/* Title + Date */}
                                     <div className="grid grid-cols-2 gap-4">
                                         <div className="space-y-1">
@@ -312,16 +384,28 @@ export default function TimelinePage() {
                                         />
                                     </div>
 
-                                    {/* Image URL */}
-                                    <div className="space-y-1">
-                                        <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Image URL (Optional)</label>
-                                        <input
-                                            type="url"
-                                            placeholder="https://..."
-                                            value={formData.image}
-                                            onChange={e => setFormData({ ...formData, image: e.target.value })}
-                                            className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-accent-primary transition-all"
-                                        />
+                                    {/* Image & Video URLs */}
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div className="space-y-1">
+                                            <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Image URL (Optional)</label>
+                                            <input
+                                                type="url"
+                                                placeholder="https://..."
+                                                value={formData.image}
+                                                onChange={e => setFormData({ ...formData, image: e.target.value })}
+                                                className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-accent-primary transition-all"
+                                            />
+                                        </div>
+                                        <div className="space-y-1">
+                                            <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Video URL (Optional)</label>
+                                            <input
+                                                type="url"
+                                                placeholder="https://..."
+                                                value={formData.video}
+                                                onChange={e => setFormData({ ...formData, video: e.target.value })}
+                                                className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-accent-primary transition-all"
+                                            />
+                                        </div>
                                     </div>
 
                                     {/* Private Toggle */}

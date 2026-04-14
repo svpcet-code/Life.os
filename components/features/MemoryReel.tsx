@@ -3,9 +3,11 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Memory, moods, MoodType } from "@/lib/data";
+import { cn } from "@/lib/utils";
 import {
     X, ChevronLeft, ChevronRight, Play, Pause,
-    Plus, Trash2, Loader2, BookOpen, Calendar
+    Plus, Trash2, Loader2, BookOpen, Calendar,
+    Upload, FileVideo, CloudUpload
 } from "lucide-react";
 
 interface MemoryReelProps {
@@ -39,6 +41,7 @@ const moodAccent: Record<string, string> = {
 const EMPTY_FORM = {
     title: "", date: new Date().toISOString().split("T")[0],
     mood: "Happy" as MoodType, description: "", fullStory: "",
+    image: "", video: "",
 };
 
 // Page-flip variants
@@ -59,6 +62,8 @@ export function MemoryReel({ memories, onClose, onAdd, onDelete }: MemoryReelPro
     const [showAddModal, setShowAddModal] = useState(false);
     const [form, setForm] = useState({ ...EMPTY_FORM });
     const [saving, setSaving] = useState(false);
+    const [uploading, setUploading] = useState(false);
+    const [isDragging, setIsDragging] = useState(false);
 
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
     const progressRef = useRef<NodeJS.Timeout | null>(null);
@@ -133,6 +138,38 @@ export function MemoryReel({ memories, onClose, onAdd, onDelete }: MemoryReelPro
         setForm({ ...EMPTY_FORM });
         setShowAddModal(false);
         setSaving(false);
+    };
+
+    const handleFileUpload = async (file: File) => {
+        setUploading(true);
+        const formData = new FormData();
+        formData.append("file", file);
+
+        try {
+            const res = await fetch("/api/upload", {
+                method: "POST",
+                body: formData,
+            });
+            const data = await res.json();
+            if (data.url) {
+                if (file.type.startsWith("video/")) {
+                    setForm(prev => ({ ...prev, video: data.url }));
+                } else if (file.type.startsWith("image/")) {
+                    setForm(prev => ({ ...prev, image: data.url }));
+                }
+            }
+        } catch (error) {
+            console.error("Upload failed:", error);
+        } finally {
+            setUploading(false);
+        }
+    };
+
+    const handleDrop = (e: React.DragEvent) => {
+        e.preventDefault();
+        setIsDragging(false);
+        const file = e.dataTransfer.files[0];
+        if (file) handleFileUpload(file);
     };
 
     const memory = memories[current];
@@ -280,6 +317,29 @@ export function MemoryReel({ memories, onClose, onAdd, onDelete }: MemoryReelPro
                                 />
 
                                 <div className="pl-6 pr-6 pt-8 pb-8">
+                                    {/* Media Rendering */}
+                                    {(memory.video || memory.image) && (
+                                        <div className="relative h-48 w-full mb-6 rounded-xl overflow-hidden group ring-1 ring-white/10 shadow-2xl">
+                                            {memory.video ? (
+                                                <video
+                                                    src={memory.video}
+                                                    className="w-full h-full object-cover"
+                                                    controls
+                                                    muted
+                                                    loop
+                                                    playsInline
+                                                />
+                                            ) : (
+                                                <img
+                                                    src={memory.image}
+                                                    alt={memory.title}
+                                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                                />
+                                            )}
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                                        </div>
+                                    )}
+
                                     {/* Mood + Date row */}
                                     <div className="flex items-center justify-between mb-6">
                                         <motion.span
@@ -305,8 +365,8 @@ export function MemoryReel({ memories, onClose, onAdd, onDelete }: MemoryReelPro
                                             <button
                                                 onClick={() => handleDelete(memory.id)}
                                                 className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${confirmDeleteId === memory.id
-                                                        ? "bg-red-500/30 border border-red-400/50 text-red-300 animate-pulse"
-                                                        : "bg-white/5 border border-white/10 text-white/30 hover:bg-red-500/20 hover:border-red-400/40 hover:text-red-400"
+                                                    ? "bg-red-500/30 border border-red-400/50 text-red-300 animate-pulse"
+                                                    : "bg-white/5 border border-white/10 text-white/30 hover:bg-red-500/20 hover:border-red-400/40 hover:text-red-400"
                                                     }`}
                                             >
                                                 <Trash2 size={10} />
@@ -433,6 +493,43 @@ export function MemoryReel({ memories, onClose, onAdd, onDelete }: MemoryReelPro
                                 </div>
 
                                 <form onSubmit={handleAdd} className="space-y-4">
+                                    {/* Drag and Drop Zone */}
+                                    <div
+                                        onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+                                        onDragLeave={() => setIsDragging(false)}
+                                        onDrop={handleDrop}
+                                        className={cn(
+                                            "relative border-2 border-dashed rounded-xl p-8 transition-all flex flex-col items-center justify-center gap-2 cursor-pointer",
+                                            isDragging ? "border-accent-primary bg-accent-primary/10 scale-[0.98]" : "border-white/10 bg-white/5 hover:bg-white/10",
+                                            uploading && "opacity-50 pointer-events-none"
+                                        )}
+                                        onClick={() => {
+                                            const input = document.createElement('input');
+                                            input.type = 'file';
+                                            input.accept = 'image/*,video/*';
+                                            input.onchange = (e) => {
+                                                const file = (e.target as HTMLInputElement).files?.[0];
+                                                if (file) handleFileUpload(file);
+                                            };
+                                            input.click();
+                                        }}
+                                    >
+                                        <div className="absolute top-2 right-2 flex gap-1">
+                                            {form.image && <div className="w-8 h-8 rounded bg-green-500/20 border border-green-500/50 flex items-center justify-center"><CloudUpload size={12} className="text-green-500" /></div>}
+                                            {form.video && <div className="w-8 h-8 rounded bg-blue-500/20 border border-blue-500/50 flex items-center justify-center"><FileVideo size={12} className="text-blue-500" /></div>}
+                                        </div>
+
+                                        {uploading ? (
+                                            <Loader2 className="animate-spin text-accent-primary" size={24} />
+                                        ) : (
+                                            <Upload className={cn("text-gray-400 group-hover:text-white transition-colors", isDragging && "text-accent-primary scale-110")} size={32} />
+                                        )}
+                                        <p className="text-sm font-medium text-gray-400">
+                                            {uploading ? "Uploading media..." : "Drag & Drop or Click to Upload Media"}
+                                        </p>
+                                        <p className="text-[10px] text-gray-500 uppercase tracking-widest">Supports Images & Videos</p>
+                                    </div>
+
                                     <div className="grid grid-cols-2 gap-4">
                                         <div className="space-y-1">
                                             <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Title *</label>
@@ -458,8 +555,8 @@ export function MemoryReel({ memories, onClose, onAdd, onDelete }: MemoryReelPro
                                                 <button key={mood} type="button"
                                                     onClick={() => setForm({ ...form, mood })}
                                                     className={`px-3 py-1.5 rounded-full text-xs border transition-all ${form.mood === mood
-                                                            ? "text-white"
-                                                            : "bg-white/5 border-white/10 text-gray-400 hover:bg-white/10"
+                                                        ? "text-white"
+                                                        : "bg-white/5 border-white/10 text-gray-400 hover:bg-white/10"
                                                         }`}
                                                     style={form.mood === mood ? { backgroundColor: moodAccent[mood] + "30", borderColor: moodAccent[mood] + "60", color: moodAccent[mood] } : {}}
                                                 >
@@ -475,6 +572,25 @@ export function MemoryReel({ memories, onClose, onAdd, onDelete }: MemoryReelPro
                                             value={form.description} onChange={e => setForm({ ...form, description: e.target.value })}
                                             className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:ring-2 transition-all"
                                         />
+                                    </div>
+
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div className="space-y-1">
+                                            <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Image URL</label>
+                                            <input type="text" placeholder="https://…"
+                                                value={form.image} onChange={e => setForm({ ...form, image: e.target.value })}
+                                                className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:ring-2 transition-all"
+                                                style={{ ["--tw-ring-color" as string]: accent + "60" }}
+                                            />
+                                        </div>
+                                        <div className="space-y-1">
+                                            <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Video URL</label>
+                                            <input type="text" placeholder="https://….mp4"
+                                                value={form.video} onChange={e => setForm({ ...form, video: e.target.value })}
+                                                className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:ring-2 transition-all"
+                                                style={{ ["--tw-ring-color" as string]: accent + "60" }}
+                                            />
+                                        </div>
                                     </div>
 
                                     <div className="space-y-1">
